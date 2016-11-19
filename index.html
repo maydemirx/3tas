@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<title>3 Taş Oyunu</title>
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/eventemitter.js"></script>
+<script type="text/javascript" src="js/helper.js"></script>
+<script type="text/javascript" src="js/point.js"></script>
+<script type="text/javascript" src="js/circle.js"></script>
+<script type="text/javascript" src="js/board.js"></script>
+<script type="text/javascript" src="js/player.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// body...
+	
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	var boardSettings = {
+		width: 800,
+		height: 400,
+		h: 2,
+		v: 2
+	};
+
+	var paddingHorizontal = (w - boardSettings.width) / 2;
+	var paddingVertical = (h - boardSettings.height) / 2;
+
+
+
+	var board = new Board(
+		$('.board')
+		, boardSettings.width
+		, boardSettings.height
+		, boardSettings.h
+		, boardSettings.v
+		, true
+	);
+
+	board.addPlayer('Player 1', $('.player-area'), 'red');
+	board.addPlayer('Player 2', $('.player-area'), 'blue');
+
+	window.board = board;
+});
+
+</script>
+
+
+<body>
+
+<div class="container">
+	<div class="board"></div>
+	<div class="player-area">
+	</div>
+	<div style="clear:both"></div>
+</div>
+
+
+</body>
+</html>

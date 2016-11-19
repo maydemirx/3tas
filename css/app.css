@@ -1,0 +1,16 @@
+.board {
+	border: 1px solid #000;
+	width: 800px;
+	height: 400px;
+	verflow:hidden;
+	float:left;
+}
+
+.player-area {
+	float:left;
+	width:25%;
+	height: 400px;
+	overflow:hidden;
+	margin-top: 50px;
+	padding: 10px;
+}
