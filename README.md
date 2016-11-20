@@ -1,5 +1,5 @@
 # 3tas
-Web based turkish-street game
+Web based turkish-street game - [demo](https://maydemirx.github.io/3tas/)
 
 # Game Rules
 
