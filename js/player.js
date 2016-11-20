@@ -16,7 +16,6 @@ class Player extends Board {
 		this.color = color;
 		this._guuid = guid();
 		this.board = board;
-		this.board.on('move', this.onMovedToBoard.bind(this));
 		this.circleCount = 3;
 		this.prepareCircles();
 	}
@@ -26,13 +25,6 @@ class Player extends Board {
 			var circle = this.add(0, i, this);
 			circle.element.removeAttr('style');
 			circle.player = this;
-		}
-	}
-	onMovedToBoard(source, target, sourcePlayerGuuid) {
-		if (sourcePlayerGuuid == this.guid) {			
-			var circle = this.getCircle(source.x, source.y);
-			circle.remove();
-			this.board.add(target.x, target.y, this);
 		}
 	}
 }

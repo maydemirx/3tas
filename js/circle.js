@@ -63,10 +63,30 @@ class Circle extends EventEmitter {
 	    let sourceX = parseInt(e.dataTransfer.getData("x"));
 	    let sourceY = parseInt(e.dataTransfer.getData("y"));
 	    let sourcePlayerGuid = e.dataTransfer.getData('player-guid');
-	    let sourceCircle = this.board.getCircle(sourceX, sourceY);
-	    if (sourceCircle) {
-	    	sourceCircle.move(this.point.x, this.point.y);
+	    let sourcePlayer = this.board.getPlayer(sourcePlayerGuid);
+
+	    if (this.board.isGameBoard) {
+
+	    	let sourceCircle = sourcePlayer.getCircle(sourceX, sourceY);
+	    	if (sourceCircle) {
+	    		sourcePlayer.remove(sourceX, sourceY);
+	    		this.board.add(this.point.x, this.point.y, sourcePlayer);
+	    	} else {
+	    		let shortestPath = this.board.getShortestPath(new Point(sourceX, sourceY), this.point)
+					.removeOne(sourceX + '_' + sourceY)
+					.removeOne(this.point.x + '_' + this.point.y);
+	    		for (let i = 0; i < shortestPath.length; i++) {
+	    			let x = parseInt(shortestPath[i].split('_')[0]);
+	    			let y = parseInt(shortestPath[i].split('_')[1]);
+	    			if (this.board.hasCircle(new Point(x, y))) {
+	    				return false;
+	    			}
+	    		}
+	    		sourceCircle = this.board.getCircle(sourceX, sourceY);
+	    		sourceCircle.move(this.point.x, this.point.y);
+	    	}
+
+
 	    }
-	    this.emit('move', [ new Point(sourceX, sourceY), this.point.toJSON(), sourcePlayerGuid ]);
 	}
 }

@@ -7,3 +7,11 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
 }
+
+Array.prototype.removeOne = function(one) {
+	var indexOfOne = this.indexOf(one);
+	if (indexOfOne !== -1) {
+		this.splice(indexOfOne, 1);
+	}
+	return this;
+};
