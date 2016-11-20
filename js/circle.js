@@ -52,6 +52,9 @@ class Circle extends EventEmitter {
 		e.preventDefault();
 	}
 	onDragStart (e) {
+		if (!this.board.isGameBoard && !this.board.playingSequence) {
+			return false;
+		}
 		e = e.originalEvent;
 		e.dataTransfer.setData("x", this.point.x);
 		e.dataTransfer.setData("y", this.point.y);
