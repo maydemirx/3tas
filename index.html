@@ -2,7 +2,7 @@
 <html>
 <title>3 Taş Oyunu</title>
 <link rel="stylesheet" type="text/css" href="css/app.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/eventemitter.js"></script>
 <script type="text/javascript" src="js/helper.js"></script>
 <script type="text/javascript" src="js/point.js"></script>
@@ -20,8 +20,8 @@ $(document).ready(function() {
 	var w = window.innerWidth;
 	var h = window.innerHeight;
 	var boardSettings = {
-		width: 800,
-		height: 400,
+		width: w * .5,
+		height: h * .5,
 		h: 2,
 		v: 2
 	};
