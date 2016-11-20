@@ -42,6 +42,13 @@ $(document).ready(function() {
 
 	board.addPlayer('Player 1', $('.player-area'), 'red');
 	board.addPlayer('Player 2', $('.player-area'), 'blue');
+	board.on('player.win', function(player) {
+		$('.lastwon').text(player.name + ' win!');
+	});
+	board.on('player.sequence.changed', function(player) {
+		$('.player-sequence').text(player.name + ' running!');
+	});
+	board.start();
 
 	window.board = board;
 });
@@ -55,7 +62,8 @@ $(document).ready(function() {
 	<div class="board"></div>
 	<div class="player-area">
 	</div>
-	<div style="clear:both"></div>
+	<div style="clear:both" class="player-sequence"></div>
+	<div style="clear:both" class="lastwon"></div>
 </div>
 
 

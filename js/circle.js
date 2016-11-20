@@ -52,7 +52,7 @@ class Circle extends EventEmitter {
 		e.preventDefault();
 	}
 	onDragStart (e) {
-		if (!this.board.isGameBoard && !this.board.playingSequence) {
+		if (!this.player.playingSequence) {
 			return false;
 		}
 		e = e.originalEvent;

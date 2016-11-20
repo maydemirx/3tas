@@ -28,6 +28,9 @@ class Board extends EventEmitter {
 		this._h = column;
 		this._v = verticalCount;
 		this._gameController = new GameController(this);
+		this._gameController.on('player.sequence.changed', this.onPlayerSequenceChanged.bind(this));
+		this._gameController.on('player.win', this.onWin.bind(this));
+
 		this._graph = new Graph();
 
 		if (createEmpties) {		
@@ -70,8 +73,8 @@ class Board extends EventEmitter {
 			var circle = new Circle('images/' + player.color + '.png', this, point);
 			circle.player = player;
 			this._circles.push(circle);
-			circle.on('location.changed', this.checkWin.bind(this));
-			this.checkWin();
+			circle.on('location.changed', this.onCircleLocationChanged.bind(this));
+			this.onCircleLocationChanged(circle, point);
 			return circle;
 		}
 		return false;
@@ -125,6 +128,7 @@ class Board extends EventEmitter {
 		}
 		return null;
 	}
+	get getPlayers() { return this._players; }
 	clear() {
 		for (let x = 0; x <= this._h; x++) {
 			for (let y = 0; y <= this._v; y++) {
@@ -139,19 +143,25 @@ class Board extends EventEmitter {
 	isEmpty() {
 		return this._circles.length == 0;
 	}
-	checkWin() {
+	start() {
 		if (this.isGameBoard) {
-			let win = this._gameController.control();
-			if (win) {
-				this.clear();
-				for (let i = 0; i < this._players.length; i++) {
-					this._players[i].clear();
-				}
-				for (let i = 0; i < this._players.length; i++) {
-					this._players[i].prepareCircles();
-				}
-				alert(win.name + ' won!!');
-			}
+			this._gameController.start();
+		}
+	}
+	onCircleLocationChanged() {
+		if (this.isGameBoard) {
+			this.emit('circle.location.changed', arguments);
+		}
+	}
+	onWin() {
+		if (this.isGameBoard) {
+			this.emit('player.win', arguments);
+			this._gameController.restart();
+		}
+	}
+	onPlayerSequenceChanged() {
+		if (this.isGameBoard) {
+			this.emit('player.sequence.changed', arguments);
 		}
 	}
 }
