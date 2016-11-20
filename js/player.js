@@ -15,11 +15,13 @@ class Player extends Board {
 		this.name = name;
 		this.color = color;
 		this._guuid = guid();
+		this._playingSequence = false;
 		this.board = board;
 		this.circleCount = 3;
-		this.prepareCircles();
 	}
 	get guid() { return this._guuid; }
+	get playingSequence() { return this._playingSequence; }
+	set playingSequence(playingSequence) { this._playingSequence = playingSequence; }
 	prepareCircles() {
 		for (let i = 0; i < this.circleCount; i++) {
 			var circle = this.add(0, i, this);
